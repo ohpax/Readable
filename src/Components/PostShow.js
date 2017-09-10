@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {fetchPost, fetchPostComments} from '../Actions'
 import Moment from 'react-moment'
 import Vote from './Vote'
+import Header from './Header'
 import _ from 'lodash'
 import './PostShow.css';
 
@@ -24,13 +25,14 @@ class PostShow extends React.Component {
         }
         return (
         <div>
-            <div className="panel">
+            <Header></Header>
+            <div className="panel container">
                 <div className="panel-heading">
                     <div className="text-center">
                         <div className="row">
                             <div className="col-sm-9">
-                                <h3 className="pull-left">{post.title}</h3>
-                                <Vote totalVote={post.voteScore} postId={post.id}></Vote>
+                                <h3 className="pull-left post-title">{post.title}</h3>
+                                
                             </div>
                             <div className="col-sm-3">
                                 
@@ -39,7 +41,13 @@ class PostShow extends React.Component {
                                 <br/>
                                 <small><em><Moment format='YYYY/MM/DD'>{post.timestamp}</Moment></em></small>
                                 </h4>
+                  
+                                
                             </div>
+                            <div className="pull-left">
+                                <Vote className="vote-wrapper" totalVote={post.voteScore} postId={post.id}></Vote>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -75,13 +83,10 @@ class PostShow extends React.Component {
 
 const mapStateToProps = (state, props) => {
     const { id } = props.match.params;
-    
-    const tempPost = state.posts.find((post) => post.id === id)
-    const tempComments = _.filter(state.comments, comment => comment.parentId === id);
 
     return {
-        post:tempPost,
-        comments:tempComments
+        post: state.posts[id],
+        comments: _.filter(state.comments, comment => comment.parentId === id)
     }
     
 }

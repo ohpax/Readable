@@ -1,0 +1,9 @@
+.sort-wrapper {
+    padding: 15px 10px 15px 30px;
+    text-align: left;
+    background-color: gray;
+}
+
+.sort-wrapper select{
+    width: 300px;
+}

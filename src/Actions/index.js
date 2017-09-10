@@ -16,16 +16,25 @@ export const DOWN_VOTE_POST = 'DOWN_VOTE_POST'
 
 export const VOTE_COMMENT = 'VOTE_COMMENT'
 
+
+
+export const sortOldToNew='OLD_TO_NEW'
+export const sortNewToOld='NEW_TO_OLD'
+export const sortHighestScoreToLowest='HIGHEST_SCORE_TO_LOWEST'
+export const sortLowestScoreToHighest='LOWEST_SCORE_TO_HIGHEST'
+
 // Get POSTS 
-export const getPosts = posts => ({
+export const getPosts = (posts,sortType) => ({
     type: GET_POSTS,
-    posts: posts
+    posts: posts,
+    sortType:sortType
+
 });
 
-export const fetchPosts = () => dispatch => (
+export const fetchPosts = (sortType) => dispatch => (
     API
     .fetchPosts()
-    .then(posts => dispatch(getPosts(posts)))
+    .then(posts => dispatch(getPosts(posts,sortType)))
 );
 
 

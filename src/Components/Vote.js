@@ -4,6 +4,7 @@ import {downVotePost, upVotePost} from '../Actions'
 import './Vote.css';
 class Vote extends React.Component {
     render() {
+ 
         return (
             <div className="vote-wrapper" >
                 <i className="glyphicon glyphicon-chevron-up vote-icon" onClick={() => (this.props.upVote(this.props.postId))} />

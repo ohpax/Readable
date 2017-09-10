@@ -1,13 +1,18 @@
 import React from 'react'
 import Moment from 'react-moment'
 import Vote from './Vote'
+import {Link} from 'react-router-dom'
+import _ from 'lodash'
+import './PostsList.css'
 
 
  const PostsList = (props) => {
     return  (<div className='posts-container'>
-    {props.posts.map( post => {
+    { _.map(props.posts,post => {
       return (<div key={post.id} className='post-wrapper'>
-          <h3>{post.title}</h3>
+        <div className="col-sm-12">
+          <Link to={`/posts/${post.id}`}><h3 className="post-title">{post.title}</h3></Link>             
+        </div>
           <p>{post.body}</p>
           <small>date: <Moment format='YYYY/MM/DD'>{post.timestamp}</Moment></small>
           <br/>
@@ -15,7 +20,6 @@ import Vote from './Vote'
           <br/>
           <small>author: {post.author}</small>
           <br/>
-          <small>vote: {post.voteScore}</small>
           <Vote totalVote={post.voteScore} postId={post.id}></Vote>
         </div>)
     })}
