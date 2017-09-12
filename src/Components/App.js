@@ -17,6 +17,7 @@ class App extends Component {
             )}/>
             
             <Route path="/posts/:id" component={PostShow} />
+            <Route path="/:category" component={Posts} />
           </Switch>
         </BrowserRouter>
       </div>

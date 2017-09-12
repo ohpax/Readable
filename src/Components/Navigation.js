@@ -11,14 +11,15 @@ const Navigation = () => {
                         <span className="icon-bar"></span>
                         <span className="icon-bar"></span>
                     </button>
-                    <a className="navbar-brand" href="#">Readable</a>
+                    <Link className="navbar-brand" to={`/`}>Readable</Link>
                 </div>
 
 
                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul className="nav navbar-nav">
                         <li ><Link to={`/`}>Posts</Link></li>
-                        <li><a href="#">Comments</a></li>
+                        <li ><Link to={`/react`}>React</Link></li>
+                        <li ><Link to={`/redux`}>Redux</Link></li>
                     </ul>
 
                 </div>

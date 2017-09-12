@@ -22,7 +22,7 @@ function post(state=initState, action){
 
     switch(action.type){
         case GET_POSTS :
-            let tempSorts = action.posts
+            let tempSorts =  [... state.posts, ... action.posts]
 
             if (action.sortType === sortOldToNew) {
                 tempSorts = _.sortBy(tempSorts, 'timestamp')
@@ -37,24 +37,24 @@ function post(state=initState, action){
                 tempSorts = _.sortBy(tempSorts, 'voteScore')
             }
             return {
-                ... state,
-                posts: _.mapKeys(tempSorts, 'id') 
+                ...state,
+                posts:  _.mapKeys(tempSorts, 'id')
             }
         case GET_POST:
             return {
-                    ... state,
-                    posts: {... state.posts,  [action.post.id]: action.post}
-                }
+                ...state,
+                posts: { ...state.posts, [action.post.id]: action.post }
+            }
         case GET_COMMENTS :
             return {
-                ... state,
+                ...state,
                 comments: _.mapKeys(action.comments, 'id')
             }
         case UP_VOTE_POST: 
             return {
-                ... state,
-                posts: _.mapKeys(state.posts,(value,key)=> {
-                    if (key  === action.postId) {
+                ...state,
+                posts: _.mapKeys(state.posts, (value, key) => {
+                    if (key === action.postId) {
                         value.voteScore++
                     }
                     return key;
@@ -62,9 +62,9 @@ function post(state=initState, action){
             }
         case DOWN_VOTE_POST: 
         return {
-            ... state,
-            posts: _.mapKeys(state.posts,(value,key)=> {
-                if (key  === action.postId) {
+            ...state,
+            posts: _.mapKeys(state.posts, (value, key) => {
+                if (key === action.postId) {
                     value.voteScore--
                 }
                 return key;

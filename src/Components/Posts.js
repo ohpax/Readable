@@ -11,13 +11,33 @@ class Posts extends React.Component {
 
     constructor(props){
         super(props)
-
+        this.state = {category:''}
         this.sortPosts = this.sortPosts.bind(this)
     }
 
 
     componentWillMount() {
-        this.props.getPosts(sortNewToOld);
+        
+        if(this.props.match) {
+            const { category } = this.props.match.params;
+            
+            this.props.getPosts(sortNewToOld,category)
+            this.setState({category:category});
+
+        }else{
+            this.props.getPosts(sortNewToOld);
+        }
+        
+    }
+
+    componentWillReceiveProps(){
+        if(this.props.match) {
+            const { category } = this.props.match.params;
+            //console.log(category)
+            this.props.getPosts(sortNewToOld,category)
+            this.setState({category:category});
+
+        }
     }
 
     sortPosts(event){
@@ -40,18 +60,19 @@ class Posts extends React.Component {
                         <option value={sortLowestScoreToHighest}>Lowest score to heighest</option>
                     </select>
                 </div>
-                <PostsList posts={this.props.posts}></PostsList>
+                <PostsList posts={this.state.category?_.filter(this.props.posts, (post) => ( post.category === this.state.category) ):this.props.posts}></PostsList>
             </div>
         );
     }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state) => ({
     posts: state.posts
 });
 
 const mapDispatchToProps = dispatch => ({
-    getPosts: (sortType) => dispatch(fetchPosts(sortType))
+    getPosts: (sortType) => dispatch(fetchPosts(sortType)),
+    getCategoryPosts: (sortType,category) => dispatch(fetchPosts(sortType,category))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);

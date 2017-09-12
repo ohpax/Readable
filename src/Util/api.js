@@ -6,7 +6,11 @@ export function fetchPosts(){
      .then((res) => res.json())
      .then((data)=> data)
 }
-
+export function fetchCategoryPosts(category){
+    return fetch(`${url}/${category}/posts`, { headers: { 'Authorization': key }})
+    .then((res) => res.json())
+    .then((data)=> data)
+}
 export function fetchPost(postId) {
     return fetch(`${url}/posts/${postId}`, { headers: { 'Authorization': key }})
     .then((res) => res.json())

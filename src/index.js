@@ -11,6 +11,7 @@ import {Provider} from 'react-redux'
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
+
 const store = () =>createStore(post,applyMiddleware(thunk));
 
 ReactDOM.render(

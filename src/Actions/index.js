@@ -3,6 +3,7 @@ import * as API from '../Util/api'
 export const GET_POSTS = 'GET_POSTS'
 export const GET_POST = 'GET_POST'
 export const GET_CATEGORIES = 'GET_CATEGORIES'
+export const GET_CATEGORY_POSTS = 'GET_CATEGORY_POSTS'
 export const GET_COMMENTS = 'GET_COMMENTS'
 
 export const CREATE_POST = 'CREATE_POST'
@@ -24,19 +25,40 @@ export const sortHighestScoreToLowest='HIGHEST_SCORE_TO_LOWEST'
 export const sortLowestScoreToHighest='LOWEST_SCORE_TO_HIGHEST'
 
 // Get POSTS 
-export const getPosts = (posts,sortType) => ({
+export const getPosts = (posts,sortType,category) => ({
     type: GET_POSTS,
     posts: posts,
     sortType:sortType
 
 });
 
-export const fetchPosts = (sortType) => dispatch => (
-    API
-    .fetchPosts()
-    .then(posts => dispatch(getPosts(posts,sortType)))
-);
+export const fetchPosts = (sortType,category='all') => dispatch => {
+    if(category=='all'){
+        return API
+        .fetchPosts()
+        .then(posts => dispatch(getPosts(posts,sortType)))
+    }
+    else{
+       return API
+        .fetchCategoryPosts(category)
+        .then(posts => dispatch(getPosts(posts,sortType,category)))
+    }
 
+};
+
+// Get Category POSTS 
+// export const getGategoryPosts = (posts,sortType) => ({
+//     type: GET_POSTS,
+//     posts: posts,
+//     sortType:sortType
+
+// });
+
+// export const fetchCategoryPosts = (category,sortType) => dispatch => (
+//     API
+//     .fetchCategoryPosts()
+//     .then(posts => dispatch(getPosts(posts,sortType)))
+// );
 
 // Get A POST 
 export const getPost = post => ({
