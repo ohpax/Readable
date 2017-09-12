@@ -33,7 +33,6 @@ class Posts extends React.Component {
     componentWillReceiveProps(){
         if(this.props.match) {
             const { category } = this.props.match.params;
-            //console.log(category)
             this.props.getPosts(sortNewToOld,category)
             this.setState({category:category});
 

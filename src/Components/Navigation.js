@@ -17,6 +17,7 @@ const Navigation = () => {
 
                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul className="nav navbar-nav">
+                    <li ><Link to={`/posts/create`}>New Post</Link></li>
                         <li ><Link to={`/`}>Posts</Link></li>
                         <li ><Link to={`/react`}>React</Link></li>
                         <li ><Link to={`/redux`}>Redux</Link></li>

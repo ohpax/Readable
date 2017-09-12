@@ -26,3 +26,15 @@
 .post-wrapper{
   padding: 15px 0;
 }
+
+form{
+  width: 80%;
+  text-align: left;
+  margin: 30px;
+}
+
+
+form .form-control{
+  width: 80%;
+  /* width:350px; */
+}
