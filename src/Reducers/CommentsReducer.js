@@ -10,9 +10,9 @@ function CommentsReducer(state={}, action){
             case GET_COMMENTS :
                 return {
                     ...state,
-                   ... _.mapKeys(action.comments, 'id')
+                   ..._.mapKeys(action.comments, 'id')
                 }
-            default :
+            default:
                 return state;
         }
     }

@@ -12,6 +12,8 @@ export const CREATE_COMMENT = 'CREATE_COMMENT'
 export const EDIT_POST = 'EDIT_POST'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 
+export const DELETE_POST = 'DELETE_POST'
+
 export const UP_VOTE_POST = 'UP_VOTE_POST'
 export const DOWN_VOTE_POST = 'DOWN_VOTE_POST'
 
@@ -24,6 +26,30 @@ export const sortNewToOld='NEW_TO_OLD'
 export const sortHighestScoreToLowest='HIGHEST_SCORE_TO_LOWEST'
 export const sortLowestScoreToHighest='LOWEST_SCORE_TO_HIGHEST'
 
+
+//Create Post
+export const createPost = post => ({
+    type: CREATE_POST,
+    post: post
+});
+
+export const newPost = (post) => dispatch => (
+    API
+    .createPost(post)
+    .then(post => {dispatch(createPost(post))})
+);
+
+//Update Post
+export const editPost = post => ({
+    type: EDIT_POST,
+    post: post
+});
+
+export const updatePost = (post) => dispatch => (
+    API
+    .updatePost(post)
+    .then(post => {dispatch(createPost(post))})
+);
 // Get POSTS 
 export const getPosts = (posts,sortType,category) => ({
     type: GET_POSTS,
@@ -33,7 +59,7 @@ export const getPosts = (posts,sortType,category) => ({
 });
 
 export const fetchPosts = (sortType,category='all') => dispatch => {
-    if(category=='all'){
+    if(category ==='all'){
         return API
         .fetchPosts()
         .then(posts => dispatch(getPosts(posts,sortType)))
@@ -43,7 +69,6 @@ export const fetchPosts = (sortType,category='all') => dispatch => {
         .fetchCategoryPosts(category)
         .then(posts => dispatch(getPosts(posts,sortType,category)))
     }
-
 };
 
 // Get Category POSTS 
@@ -59,6 +84,18 @@ export const fetchPosts = (sortType,category='all') => dispatch => {
 //     .fetchCategoryPosts()
 //     .then(posts => dispatch(getPosts(posts,sortType)))
 // );
+
+// Delete A POST 
+export const deletePost = postId => ({
+    type: DELETE_POST,
+    postId: postId
+});
+
+export const removePost = (postId) => dispatch => (
+    API
+    .deletePost(postId)
+    .then((postId) => {dispatch(deletePost(postId))})
+);
 
 // Get A POST 
 export const getPost = post => ({

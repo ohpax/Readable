@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import {
+    DELETE_POST,
     GET_POST, 
     GET_POSTS, 
     UP_VOTE_POST, 
@@ -8,7 +9,6 @@ import {
     sortNewToOld, 
     sortHighestScoreToLowest, 
     sortLowestScoreToHighest
-
 } from '../Actions'
 
 
@@ -17,7 +17,7 @@ function PostsReducer(state={}, action){
         switch(action.type){
 
             case GET_POSTS :
-                let tempSorts =  [... state, ... action.posts]
+                let tempSorts = [...state, ...action.posts]
     
                 if (action.sortType === sortOldToNew) {
                     tempSorts = _.sortBy(tempSorts, 'timestamp')
@@ -34,13 +34,20 @@ function PostsReducer(state={}, action){
                 return {               
                     ..._.mapKeys(tempSorts, 'id')
                 }
-
             case GET_POST:
                 return {
                     ...state,
-                     [action.post.id]: { ... action.post} 
+                     [action.post.id]:  action.post
                     }
-                
+            case DELETE_POST:
+                    return {
+                        ..._.mapKeys(state, (value, key) => {
+                            if (key === action.postId) {
+                                value.deleted = true;
+                            }   
+                            return key;              
+                        })
+                    } 
             case UP_VOTE_POST: 
                 return {
                     ...state,

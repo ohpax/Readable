@@ -2,13 +2,11 @@ import React from 'react'
 import PostsList from './PostsList'
 import Header from './Header'
 import { connect } from 'react-redux'
-import { fetchPosts, sortOldToNew,sortNewToOld, sortHighestScoreToLowest, sortLowestScoreToHighest } from '../Actions'
+import { fetchPosts, removePost, sortOldToNew,sortNewToOld, sortHighestScoreToLowest, sortLowestScoreToHighest } from '../Actions'
 import _ from 'lodash'
 import './Posts.css'
 
 class Posts extends React.Component {
-
-
     constructor(props){
         super(props)
         this.state = {category:''}
@@ -16,26 +14,27 @@ class Posts extends React.Component {
     }
 
 
-    componentWillMount() {
-        
+    componentWillMount() {       
         if(this.props.match) {
             const { category } = this.props.match.params;
             
             this.props.getPosts(sortNewToOld,category)
             this.setState({category:category});
 
-        }else{
-            this.props.getPosts(sortNewToOld);
         }
-        
+        else {
+            this.props.getPosts(sortNewToOld);
+        }   
     }
 
-    componentWillReceiveProps(){
-        if(this.props.match) {
-            const { category } = this.props.match.params;
-            this.props.getPosts(sortNewToOld,category)
-            this.setState({category:category});
+    componentWillReceiveProps(newProps){
 
+        if(newProps.match) {
+            const { category } = newProps.match.params;
+            if(category !== this.state.category){
+                this.props.getPosts(sortNewToOld,category)
+                this.setState({category:category});
+            }
         }
     }
 
@@ -59,7 +58,7 @@ class Posts extends React.Component {
                         <option value={sortLowestScoreToHighest}>Lowest score to heighest</option>
                     </select>
                 </div>
-                <PostsList posts={this.state.category?_.filter(this.props.posts, (post) => ( post.category === this.state.category) ):this.props.posts}></PostsList>
+                <PostsList removePost={this.props.removePost} posts={this.state.category?_.filter(this.props.posts, (post) => ( post.category === this.state.category) ):this.props.posts}></PostsList>
             </div>
         );
     }
@@ -71,7 +70,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
     getPosts: (sortType) => dispatch(fetchPosts(sortType)),
-    getCategoryPosts: (sortType,category) => dispatch(fetchPosts(sortType,category))
+    getCategoryPosts: (sortType,category) => dispatch(fetchPosts(sortType,category)),
+    removePost: postId => dispatch(removePost(postId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);
