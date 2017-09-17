@@ -122,6 +122,16 @@ export const fetchPostComments = (postId) => dispatch => (
     .then(comments => {dispatch(getPostComments(comments))})
 );
 
+export const editComment = comment => ({
+    type: EDIT_COMMENT,
+    comment: comment
+});
+
+export const updateComment = (comment) => dispatch => (
+    API
+    .updateComment(comment)
+    .then(comment => {dispatch(editComment(comment))})
+);
 
 // Vote Post
 export const updatePostVote = (postId, vote) => {

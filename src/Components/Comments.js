@@ -6,13 +6,18 @@ import { removeComment } from '../Actions'
 import { connect } from 'react-redux'
 import { Modal, Button,Glyphicon } from 'react-bootstrap'
 import Comment from './Comment'
+import CommentEdit from './CommentEdit'
 
 class Comments extends React.Component {
     constructor(props) {
         super(props)
         this.close = this.close.bind(this)
     }
-    state = { showCommentEditModal: false }
+
+    state = { 
+        showCommentEditModal: false,
+        editComment:{} 
+    }
 
     onCommentDelete(commentId) {
         this.props.removeComment(commentId)
@@ -20,8 +25,11 @@ class Comments extends React.Component {
     close() {
         this.setState({ showCommentEditModal: false });
     }
-    open() {
-        this.setState({ showCommentEditModal: true });
+    open(comment) {
+        this.setState({ 
+            showCommentEditModal: true,
+            editComment:comment
+         });
     }
     render() {
         const result = _.map(this.props.comments, (comment) => {
@@ -40,7 +48,7 @@ class Comments extends React.Component {
                             </div>
 
                             <div className="col-sm-1">
-                                <Button bsStyle="default" bsSize="small" onClick={this.open.bind(this)}> 
+                                <Button bsStyle="default" bsSize="small" onClick={() => this.open.bind(this)(comment)}> 
                                     <Glyphicon glyph="pencil" />
                                 </Button>
                                 <Button bsStyle="danger" bsSize="small" onClick={() => this.onCommentDelete.bind(this)(comment.id)}> 
@@ -57,12 +65,13 @@ class Comments extends React.Component {
                     <Modal.Title>Modal heading</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Comment></Comment>
+                    <CommentEdit comment={this.state.editComment} closeModal={this.close}></CommentEdit>
                 </Modal.Body>
                 <Modal.Footer>
                 </Modal.Footer>
             </Modal>
-            {result}</div>
+            {result}
+            </div>
     }
 }
 

@@ -2,7 +2,8 @@ import _ from 'lodash'
 import {
     GET_COMMENTS,
     CREATE_COMMENT,
-    DELETE_COMMENT
+    DELETE_COMMENT,
+    EDIT_COMMENT
 } from '../Actions'
 
 
@@ -22,6 +23,16 @@ function CommentsReducer(state = {}, action) {
                 
             } 
             return tempState
+        case EDIT_COMMENT:
+        tempState = _.map(state,(comment) => {
+                if (comment.id === action.comment.id) {
+                    comment = action.comment;                  }
+                return comment;
+            })
+            tempState = {
+                ..._.mapKeys(tempState, 'id')
+            }
+        return tempState
         case DELETE_COMMENT:
             tempState =  _.sortBy(state, 'timestamp').reverse()
             tempState = _.map(tempState,(comment) => {
