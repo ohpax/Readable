@@ -4,6 +4,7 @@ import Vote from './Vote'
 import {Link} from 'react-router-dom'
 import _ from 'lodash'
 import './PostsList.css'
+import {Glyphicon } from 'react-bootstrap'
 
  class PostsList extends React.Component {
    onDeleteClick(id){
@@ -34,9 +35,8 @@ import './PostsList.css'
 
         </div>   
         <div className="col-sm-8">
-          <Link to={`/posts/edit/${post.id}`} className="btn btn-default">Edit</Link>
-          <br/><br/>
-          <button to={`/posts/edit/${post.id}`} onClick={() =>(this.onDeleteClick.bind(this)(post.id))} className="btn btn-danger">Delete</button>
+          <Link to={`/posts/edit/${post.id}`} className="btn btn-default btn-sm"><Glyphicon glyph="pencil" /></Link> <br/>
+          <button onClick={() =>(this.onDeleteClick.bind(this)(post.id))} className="btn btn-danger btn-sm"><Glyphicon glyph="trash" /></button>
         </div>           
         </div>)
     })}

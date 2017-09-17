@@ -73,13 +73,14 @@ class CreatePost extends React.Component {
     }
 
     onSubmit(values){
-        if(this.props.match){
-            const { id } = this.props.match.params;
+        const { id } = this.props.match.params;
+        if(id){
             values.id = id
             this.props.updatePost(values).then(() => {
                 this.props.history.push('/')
             })
-        }else{
+        }
+        else{
             this.props.newPost(values)
             .then(() => {
                 this.props.history.push('/')

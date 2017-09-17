@@ -23,6 +23,14 @@ export function deletePost(postId) {
      method:"DELETE"})
     .then((res) => postId)
 }
+
+export function deleteComment(commentId) {
+    return fetch(`${url}/comments/${commentId}`, 
+    { headers: { 'Authorization': key },
+     method:"DELETE"})
+    .then((res) => commentId)
+}
+
 function guid() {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000)
@@ -42,6 +50,23 @@ export function createPost(post) {
         body: post.body,
         author: post.author,
         category: post.category,
+        id: guid()        
+    })    
+})
+
+    .then((res) => res.json())
+    .then((data)=> data)
+}
+
+export function createComment(comment) {
+    return fetch(`${url}/comments`, 
+    { headers: { 'Authorization': key , "Content-Type": "application/json"}, 
+      method: "post",
+      body: JSON.stringify({
+        timestamp: Date.now(),
+        body: comment.body,
+        author: comment.author,
+        parentId : comment.parentId,
         id: guid()        
     })    
 })

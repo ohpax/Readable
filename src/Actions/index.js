@@ -13,6 +13,7 @@ export const EDIT_POST = 'EDIT_POST'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 
 export const DELETE_POST = 'DELETE_POST'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 export const UP_VOTE_POST = 'UP_VOTE_POST'
 export const DOWN_VOTE_POST = 'DOWN_VOTE_POST'
@@ -146,3 +147,26 @@ export const upVotePost = postId => dispatch => {
     return dispatch(updatePostVote(postId,1))
 }
 
+
+//Create Post
+export const createComment = comment => ({
+    type: CREATE_COMMENT,
+    comment: comment
+});
+
+export const newComment = (comment) => dispatch => (
+    API
+    .createComment(comment)
+    .then(comment => {dispatch(createComment(comment))})
+);
+
+export const deleteComment = commentId => ({
+    type: DELETE_COMMENT,
+    commentId: commentId
+});
+
+export const removeComment = (commentId) => dispatch => (
+    API
+    .deleteComment(commentId)
+    .then(commentId => {dispatch(deleteComment(commentId))})
+);

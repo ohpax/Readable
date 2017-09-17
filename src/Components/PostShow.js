@@ -4,6 +4,8 @@ import {fetchPost, fetchPostComments} from '../Actions'
 import Moment from 'react-moment'
 import Vote from './Vote'
 import Header from './Header'
+import Comment from './Comment'
+import Comments from './Comments'
 import _ from 'lodash'
 import './PostShow.css';
 
@@ -61,19 +63,8 @@ class PostShow extends React.Component {
             </div>
         </div>
             <div className="comments-wrapper">
-                { 
-                    _.map(this.props.comments, (comment) =>(
-                    <div key={comment.id} className="col-sm-offset-1 col-sm-10">
-                        <div className="panel panel-default">
-                            <div className="panel-heading">
-                            <strong>{comment.author}</strong> <span className="text-muted"><Moment format='YYYY/MM/DD'>{comment.timestamp}</Moment></span>
-                            </div>
-                            <div className="panel-body">
-                            {comment.body}
-                            </div>
-                        </div>
-                    </div>
-                ))}
+                <Comment parentId={post.id}></Comment>
+                <Comments comments={this.props.comments}></Comments>
             </div>
         </div>
 
