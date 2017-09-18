@@ -19,6 +19,13 @@ export function fetchPost(postId) {
         .then((data) => data)
 }
 
+export function fetchCategories(catgory) {
+    return fetch(`${url}/categories`, { headers: { 'Authorization': key } })
+        .then((res) => res.json())
+        .then((data) => data.categories)
+}
+
+
 export function deletePost(postId) {
     return fetch(`${url}/posts/${postId}`,
         {
@@ -27,7 +34,6 @@ export function deletePost(postId) {
         })
         .then((res) => postId)
 }
-
 export function deleteComment(commentId) {
     return fetch(`${url}/comments/${commentId}`,
         {
@@ -134,6 +140,32 @@ export function upVotePost(postId) {
 
 export function downVotePost(postId) {
     fetch(`${url}/posts/${postId}`,
+        {
+            method: "post",
+            headers: { 'Authorization': key, "Content-Type": "application/json" },
+            body: JSON.stringify({
+                option: "downVote"
+            })
+        })
+        .then((res) => res.json())
+        .then((data) => data)
+}
+
+export function upVoteComment(commentId) {
+    fetch(`${url}/comments/${commentId}`,
+        {
+            method: "post",
+            headers: { 'Authorization': key, "Content-Type": "application/json" },
+            body: JSON.stringify({
+                option: "upVote"
+            })
+        })
+        .then((res) => res.json())
+        .then((data) => data)
+}
+
+export function downVoteComment(commentId) {
+    fetch(`${url}/comments/${commentId}`,
         {
             method: "post",
             headers: { 'Authorization': key, "Content-Type": "application/json" },

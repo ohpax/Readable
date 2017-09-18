@@ -3,7 +3,9 @@ import {
     GET_COMMENTS,
     CREATE_COMMENT,
     DELETE_COMMENT,
-    EDIT_COMMENT
+    EDIT_COMMENT,
+    UP_VOTE_COMMENT,
+    DOWN_VOTE_COMMENT
 } from '../Actions'
 
 
@@ -44,7 +46,27 @@ function CommentsReducer(state = {}, action) {
                     ..._.mapKeys(tempState, 'id')
                 }
             return tempState
-           
+            case UP_VOTE_COMMENT: 
+            return {
+                ...state,
+                ..._.mapKeys(state, (value, key) => {
+                    if (key === action.commentId) {
+                        value.voteScore++
+                    }
+                    return key;
+                })
+            }
+
+        case DOWN_VOTE_COMMENT: 
+        return {
+            ...state,
+            ..._.mapKeys(state, (value, key) => {
+                if (key === action.commentId) {
+                    value.voteScore--
+                }
+                return key;
+            })
+        }
         default:
             return state;
     }

@@ -18,7 +18,8 @@ export const DELETE_COMMENT = 'DELETE_COMMENT'
 export const UP_VOTE_POST = 'UP_VOTE_POST'
 export const DOWN_VOTE_POST = 'DOWN_VOTE_POST'
 
-export const VOTE_COMMENT = 'VOTE_COMMENT'
+export const UP_VOTE_COMMENT = 'UP_VOTE_COMMENT'
+export const DOWN_VOTE_COMMENT = 'DOWN_VOTE_COMMENT'
 
 
 
@@ -85,6 +86,18 @@ export const fetchPosts = (sortType,category='all') => dispatch => {
 //     .fetchCategoryPosts()
 //     .then(posts => dispatch(getPosts(posts,sortType)))
 // );
+
+//Get Categories
+export const getGategories = (categories) => ({
+    type: GET_CATEGORIES,
+    categories: categories,
+});
+
+export const fetchCategories= () => dispatch => (
+    API
+    .fetchCategories()
+    .then(categories => {dispatch(getGategories(categories))})
+);
 
 // Delete A POST 
 export const deletePost = postId => ({
@@ -157,6 +170,26 @@ export const upVotePost = postId => dispatch => {
     return dispatch(updatePostVote(postId,1))
 }
 
+// Vote Comment
+export const updateCommentVote = (commentId, vote) => {
+    const voteType = vote > 0 ? UP_VOTE_COMMENT : DOWN_VOTE_COMMENT
+    return {
+        type: voteType,
+        commentId: commentId
+    }
+}
+
+export const downVoteComment = commentId => dispatch => {
+    API
+    .downVoteComment(commentId)
+    return dispatch(updateCommentVote(commentId, -1))
+}
+
+export const upVoteComment = commentId => dispatch => {
+    API
+    .upVoteComment(commentId)
+    return dispatch(updateCommentVote(commentId, 1))
+}
 
 //Create Post
 export const createComment = comment => ({

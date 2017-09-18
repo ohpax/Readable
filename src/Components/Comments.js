@@ -1,12 +1,11 @@
 import React from 'react'
 import _ from 'lodash'
 import Moment from 'react-moment'
-import { Link } from 'react-router-dom'
 import { removeComment } from '../Actions'
 import { connect } from 'react-redux'
 import { Modal, Button,Glyphicon } from 'react-bootstrap'
-import Comment from './Comment'
 import CommentEdit from './CommentEdit'
+import VoteComment from './VoteComment'
 
 class Comments extends React.Component {
     constructor(props) {
@@ -43,10 +42,12 @@ class Comments extends React.Component {
                             <strong>{comment.author}</strong> <span className="text-muted"><Moment format='YYYY/MM/DD'>{comment.timestamp}</Moment></span>
                         </div>
                         <div className="panel-body">
-                            <div className="col-sm-11">
+                            <div className="col-sm-10">
                                 {comment.body}
                             </div>
-
+                            <div className="col-sm-1">
+                                <VoteComment totalVote={comment.voteScore} commentId={comment.id}></VoteComment>
+                            </div>
                             <div className="col-sm-1">
                                 <Button bsStyle="default" bsSize="small" onClick={() => this.open.bind(this)(comment)}> 
                                     <Glyphicon glyph="pencil" />

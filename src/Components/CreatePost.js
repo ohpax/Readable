@@ -1,12 +1,16 @@
 import React from 'react'
 import {Field, reduxForm} from 'redux-form'
-import {newPost,fetchPost,updatePost} from '../Actions'
+import {newPost,fetchPost,updatePost,fetchCategories} from '../Actions'
 import Header from './Header'
 import {connect} from 'react-redux'
+import _ from 'lodash'
 class CreatePost extends React.Component {
 
-    state = {mode:"new"}
+    state = {mode:"new", categories:{}}
     componentWillMount(){
+        this.props.fetchCategories().then((categories)=>{
+            this.setState({categories:categories})
+        })
         const { id } = this.props.match.params;
         if(id){
             this.setState({mode:"edit"})
@@ -23,6 +27,7 @@ class CreatePost extends React.Component {
             this.setState({mode:"new"})
         }
     }
+
     textField(field){
         const {meta: {touched, error}} = field
         const className = `form-group ${touched && error? 'has-error':''}`
@@ -63,7 +68,7 @@ class CreatePost extends React.Component {
                <label className="form-label">{field.label}</label>
                <select {... field.input }  className="form-control"  disabled={disable}>
                    <option value="-1">Choose an option</option>
-                   {field.options.map((data)=>(<option key={data} value={data}>{data}</option>))} 
+                   {_.map(field.options,(data)=>(<option key={data.name} value={data.name}>{data.name}</option>))} 
                </select>
                <div className="help-block">
                     { touched&& error  }
@@ -106,7 +111,7 @@ class CreatePost extends React.Component {
                         name="category"
                         label="Category :"
                         component = {this.optionField} 
-                        options = {['react','redux']}
+                        options = {this.props.categories}
                         disabled={this.state.mode === "edit"?true:false}
                         />
 
@@ -154,12 +159,16 @@ function validate(values) {
 const mapDispatchToProps = dispatch => ({
     newPost: (post) => dispatch(newPost(post)),
     getPost: (id) => dispatch(fetchPost(id)),
-    updatePost: (post) => dispatch(updatePost(post))
+    updatePost: (post) => dispatch(updatePost(post)),
+    fetchCategories: () => dispatch(fetchCategories())
 })
 
 const mapStateToProps = (state, props) => {
     const { id } = props.match.params
-    return {post: state.posts[id] }
+    return {
+        post: state.posts[id],
+        categories: state.categories
+    }
 }
 export default reduxForm({
     validate,

@@ -55,7 +55,6 @@ class CommentEdit extends React.Component {
         return (
             <div className="row">
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="form">
-                    <Field name="author" component={this.textField} /> 
                     <Field name="body" component={this.textareaField} />
                     <button className="btn btn-default pull-right ">Post</button>      
                 </form>
