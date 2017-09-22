@@ -1,9 +1,9 @@
-import { GET_CATEGORIES} from '../Actions'
+import * as Type from '../Actions/types'
 
 
 function CategoriesReducer(state = {}, action) {
     switch (action.type) {
-        case GET_CATEGORIES:
+        case Type.GET_CATEGORIES:
             return {...action.categories};
         default:
             return state;

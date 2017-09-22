@@ -1,37 +1,9 @@
 import * as API from '../Util/api'
-
-export const GET_POSTS = 'GET_POSTS'
-export const GET_POST = 'GET_POST'
-export const GET_CATEGORIES = 'GET_CATEGORIES'
-export const GET_CATEGORY_POSTS = 'GET_CATEGORY_POSTS'
-export const GET_COMMENTS = 'GET_COMMENTS'
-
-export const CREATE_POST = 'CREATE_POST'
-export const CREATE_COMMENT = 'CREATE_COMMENT'
-
-export const EDIT_POST = 'EDIT_POST'
-export const EDIT_COMMENT = 'EDIT_COMMENT'
-
-export const DELETE_POST = 'DELETE_POST'
-export const DELETE_COMMENT = 'DELETE_COMMENT'
-
-export const UP_VOTE_POST = 'UP_VOTE_POST'
-export const DOWN_VOTE_POST = 'DOWN_VOTE_POST'
-
-export const UP_VOTE_COMMENT = 'UP_VOTE_COMMENT'
-export const DOWN_VOTE_COMMENT = 'DOWN_VOTE_COMMENT'
-
-
-
-export const sortOldToNew='OLD_TO_NEW'
-export const sortNewToOld='NEW_TO_OLD'
-export const sortHighestScoreToLowest='HIGHEST_SCORE_TO_LOWEST'
-export const sortLowestScoreToHighest='LOWEST_SCORE_TO_HIGHEST'
-
+import * as Type from './types'
 
 //Create Post
 export const createPost = post => ({
-    type: CREATE_POST,
+    type: Type.CREATE_POST,
     post: post
 });
 
@@ -43,7 +15,7 @@ export const newPost = (post) => dispatch => (
 
 //Update Post
 export const editPost = post => ({
-    type: EDIT_POST,
+    type: Type.EDIT_POST,
     post: post
 });
 
@@ -54,7 +26,7 @@ export const updatePost = (post) => dispatch => (
 );
 // Get POSTS 
 export const getPosts = (posts,sortType,category) => ({
-    type: GET_POSTS,
+    type: Type.GET_POSTS,
     posts: posts,
     sortType:sortType
 
@@ -89,7 +61,7 @@ export const fetchPosts = (sortType,category='all') => dispatch => {
 
 //Get Categories
 export const getGategories = (categories) => ({
-    type: GET_CATEGORIES,
+    type: Type.GET_CATEGORIES,
     categories: categories,
 });
 
@@ -101,7 +73,7 @@ export const fetchCategories= () => dispatch => (
 
 // Delete A POST 
 export const deletePost = postId => ({
-    type: DELETE_POST,
+    type: Type.DELETE_POST,
     postId: postId
 });
 
@@ -113,7 +85,7 @@ export const removePost = (postId) => dispatch => (
 
 // Get A POST 
 export const getPost = post => ({
-    type: GET_POST,
+    type: Type.GET_POST,
     post: post
 });
 
@@ -125,7 +97,7 @@ export const fetchPost = (postId) => dispatch => (
 
 // Get A POST Comments
 export const getPostComments = comments => ({
-    type: GET_COMMENTS,
+    type: Type.GET_COMMENTS,
     comments: comments
 });
 
@@ -136,7 +108,7 @@ export const fetchPostComments = (postId) => dispatch => (
 );
 
 export const editComment = comment => ({
-    type: EDIT_COMMENT,
+    type: Type.EDIT_COMMENT,
     comment: comment
 });
 
@@ -149,7 +121,7 @@ export const updateComment = (comment) => dispatch => (
 // Vote Post
 export const updatePostVote = (postId, vote) => {
 
-    const voteType = vote > 0? UP_VOTE_POST:DOWN_VOTE_POST
+    const voteType = vote > 0? Type.UP_VOTE_POST:Type.DOWN_VOTE_POST
 
     return {
         type: voteType,
@@ -172,7 +144,7 @@ export const upVotePost = postId => dispatch => {
 
 // Vote Comment
 export const updateCommentVote = (commentId, vote) => {
-    const voteType = vote > 0 ? UP_VOTE_COMMENT : DOWN_VOTE_COMMENT
+    const voteType = vote > 0 ? Type.UP_VOTE_COMMENT : Type.DOWN_VOTE_COMMENT
     return {
         type: voteType,
         commentId: commentId
@@ -193,7 +165,7 @@ export const upVoteComment = commentId => dispatch => {
 
 //Create Post
 export const createComment = comment => ({
-    type: CREATE_COMMENT,
+    type: Type.CREATE_COMMENT,
     comment: comment
 });
 
@@ -204,7 +176,7 @@ export const newComment = (comment) => dispatch => (
 );
 
 export const deleteComment = commentId => ({
-    type: DELETE_COMMENT,
+    type: Type.DELETE_COMMENT,
     commentId: commentId
 });
 

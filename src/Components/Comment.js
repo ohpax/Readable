@@ -57,22 +57,13 @@ class Comment extends React.Component {
 const validate = (values) => {
     const errors = {}
 
-    if(!values.body){
-        errors.body = "comment message is required"
-    }
-    if(!values.author){
-        errors.author = "Please write your name"
-    }
-    return errors
-}
+    errors.body = (!values.body) ?  "comment message is required": ""
+    errors.author = (!values.author) ?   "Please write your name": ""
 
-const mapDispatchToProps = dispatch => {
-    return {
-        newComment: (id) => dispatch(newComment(id))
-    }
+    return errors
 }
 
 export default reduxForm({
     validate,
     form: "CommentForm",
-})(connect(null,mapDispatchToProps)(Comment))
+})(connect(null,{newComment})(Comment))

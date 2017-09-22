@@ -1,45 +1,35 @@
 import _ from 'lodash'
-import {
-    DELETE_POST,
-    GET_POST, 
-    GET_POSTS, 
-    UP_VOTE_POST, 
-    DOWN_VOTE_POST, 
-    sortOldToNew,
-    sortNewToOld, 
-    sortHighestScoreToLowest, 
-    sortLowestScoreToHighest
-} from '../Actions'
+import * as Type from '../Actions/types'
 
 
 function PostsReducer(state={}, action){
     
         switch(action.type){
 
-            case GET_POSTS :
+            case Type.GET_POSTS :
                 let tempSorts = [...state, ...action.posts]
     
-                if (action.sortType === sortOldToNew) {
+                if (action.sortType === Type.sortOldToNew) {
                     tempSorts = _.sortBy(tempSorts, 'timestamp')
                 }
-                else if (action.sortType === sortNewToOld) {
+                else if (action.sortType === Type.sortNewToOld) {
                     tempSorts = _.sortBy(tempSorts, 'timestamp').reverse()
                 }
-                else if(action.sortType === sortHighestScoreToLowest){
+                else if(action.sortType === Type.sortHighestScoreToLowest){
                     tempSorts = _.sortBy(tempSorts, 'voteScore').reverse()
                 }
-                else if(action.sortType === sortLowestScoreToHighest){
+                else if(action.sortType === Type.sortLowestScoreToHighest){
                     tempSorts = _.sortBy(tempSorts, 'voteScore')
                 }
                 return {               
                     ..._.mapKeys(tempSorts, 'id')
                 }
-            case GET_POST:
+            case Type.GET_POST:
                 return {
                     ...state,
                      [action.post.id]:  action.post
                     }
-            case DELETE_POST:
+            case Type.DELETE_POST:
                     return {
                         ..._.mapKeys(state, (value, key) => {
                             if (key === action.postId) {
@@ -48,7 +38,7 @@ function PostsReducer(state={}, action){
                             return key;              
                         })
                     } 
-            case UP_VOTE_POST: 
+            case Type.UP_VOTE_POST: 
                 return {
                     ...state,
                     ..._.mapKeys(state, (value, key) => {
@@ -59,7 +49,7 @@ function PostsReducer(state={}, action){
                     })
                 }
 
-            case DOWN_VOTE_POST: 
+            case Type.DOWN_VOTE_POST: 
             return {
                 ...state,
                 ..._.mapKeys(state, (value, key) => {

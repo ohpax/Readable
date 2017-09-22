@@ -1,31 +1,24 @@
 import _ from 'lodash'
-import {
-    GET_COMMENTS,
-    CREATE_COMMENT,
-    DELETE_COMMENT,
-    EDIT_COMMENT,
-    UP_VOTE_COMMENT,
-    DOWN_VOTE_COMMENT
-} from '../Actions'
+import * as Type from '../Actions/types'
 
 
 function CommentsReducer(state = {}, action) {
     let tempState = {}
     switch (action.type) {
-        case GET_COMMENTS:
+        case Type.GET_COMMENTS:
             tempState = _.sortBy(action.comments, 'timestamp').reverse() 
             tempState = {
                 ..._.mapKeys(tempState, 'id')
             }
             return tempState
-        case CREATE_COMMENT:
+        case Type.CREATE_COMMENT:
             tempState = {
                 [action.comment.id]: action.comment,
                 ...state
                 
             } 
             return tempState
-        case EDIT_COMMENT:
+        case Type.EDIT_COMMENT:
         tempState = _.map(state,(comment) => {
                 if (comment.id === action.comment.id) {
                     comment = action.comment;                  }
@@ -35,7 +28,7 @@ function CommentsReducer(state = {}, action) {
                 ..._.mapKeys(tempState, 'id')
             }
         return tempState
-        case DELETE_COMMENT:
+        case Type.DELETE_COMMENT:
             tempState =  _.sortBy(state, 'timestamp').reverse()
             tempState = _.map(tempState,(comment) => {
                     if (comment.id === action.commentId) {
@@ -46,7 +39,7 @@ function CommentsReducer(state = {}, action) {
                     ..._.mapKeys(tempState, 'id')
                 }
             return tempState
-            case UP_VOTE_COMMENT: 
+            case Type.UP_VOTE_COMMENT: 
             return {
                 ...state,
                 ..._.mapKeys(state, (value, key) => {
@@ -57,7 +50,7 @@ function CommentsReducer(state = {}, action) {
                 })
             }
 
-        case DOWN_VOTE_COMMENT: 
+        case Type.DOWN_VOTE_COMMENT: 
         return {
             ...state,
             ..._.mapKeys(state, (value, key) => {
