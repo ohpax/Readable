@@ -1,5 +1,5 @@
-import * as API from '../Util/api'
 import * as Type from './types'
+import * as API from '../Util/CommentApi'
 
 // Get A POST Comments
 export const getPostComments = comments => ({
@@ -9,8 +9,8 @@ export const getPostComments = comments => ({
 
 export const fetchPostComments = (postId) => dispatch => (
     API
-    .fetchPostComments(postId)
-    .then(comments => {dispatch(getPostComments(comments))})
+        .fetchPostComments(postId)
+        .then(comments => { dispatch(getPostComments(comments)) })
 );
 
 export const editComment = comment => ({
@@ -20,13 +20,9 @@ export const editComment = comment => ({
 
 export const updateComment = (comment) => dispatch => (
     API
-    .updateComment(comment)
-    .then(comment => {dispatch(editComment(comment))})
+        .updateComment(comment)
+        .then(comment => { dispatch(editComment(comment)) })
 );
-
-
-
-
 
 // Vote Comment
 export const updateCommentVote = (commentId, vote) => {
@@ -39,13 +35,13 @@ export const updateCommentVote = (commentId, vote) => {
 
 export const downVoteComment = commentId => dispatch => {
     API
-    .downVoteComment(commentId)
+        .downVoteComment(commentId)
     return dispatch(updateCommentVote(commentId, -1))
 }
 
 export const upVoteComment = commentId => dispatch => {
     API
-    .upVoteComment(commentId)
+        .upVoteComment(commentId)
     return dispatch(updateCommentVote(commentId, 1))
 }
 
@@ -57,8 +53,8 @@ export const createComment = comment => ({
 
 export const newComment = (comment) => dispatch => (
     API
-    .createComment(comment)
-    .then(comment => {dispatch(createComment(comment))})
+        .createComment(comment)
+        .then(comment => { dispatch(createComment(comment)) })
 );
 
 export const deleteComment = commentId => ({
@@ -68,6 +64,6 @@ export const deleteComment = commentId => ({
 
 export const removeComment = (commentId) => dispatch => (
     API
-    .deleteComment(commentId)
-    .then(commentId => {dispatch(deleteComment(commentId))})
+        .deleteComment(commentId)
+        .then(commentId => { dispatch(deleteComment(commentId)) })
 );

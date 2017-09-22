@@ -1,5 +1,5 @@
-import * as API from '../Util/api'
 import * as Type from './types'
+import * as API from '../Util/PostApi'
 
 //Create Post
 export const createPost = post => ({
@@ -80,7 +80,7 @@ export const updatePostVote = (postId, vote) => {
         }
     
     }
-    
+
 export const downVotePost = postId => dispatch => {
     API
     .downVotePost(postId)
