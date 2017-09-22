@@ -6,5 +6,5 @@ For runing the website on your local machin, you need to clone this repository a
 Meanwile; you will need to run the backend part of this project which is provided with Udacity and works as the Rest Api for this project. You can find it [here](https://github.com/udacity/reactnd-project-readable-starter)
 
 # Contributing
-You can always contribute to this project, if you really like it. But, I personally will not continue sopporting this ;)
+You can always contribute to this project, if you really like it. But, I personally will not continue supporting it ;)
 becuase I want to start working on more exciting projects.
