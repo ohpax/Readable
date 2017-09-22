@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {downVotePost, upVotePost} from '../Actions'
+import {downVotePost, upVotePost} from '../Actions/PostActions'
 import './Vote.css';
 class Vote extends React.Component {
     render() {

@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchPost, fetchPostComments} from '../Actions'
+import {fetchPost} from '../Actions/PostActions'
+import {fetchPostComments} from '../Actions/CommentActions'
 import Moment from 'react-moment'
 import Vote from './Vote'
 import Header from './Header'

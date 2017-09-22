@@ -2,7 +2,7 @@ import React from 'react'
 import './Comment.css'
 import {reduxForm, Field} from 'redux-form'
 import {connect} from 'react-redux'
-import {newComment} from '../Actions'
+import {newComment} from '../Actions/CommentActions'
 class Comment extends React.Component {
 
     textareaField(field){

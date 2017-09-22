@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 import Moment from 'react-moment'
-import { removeComment } from '../Actions'
+import { removeComment } from '../Actions/CommentActions'
 import { connect } from 'react-redux'
 import { Modal, Button,Glyphicon } from 'react-bootstrap'
 import CommentEdit from './CommentEdit'

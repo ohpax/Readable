@@ -2,7 +2,7 @@ import React from 'react'
 import './Comment.css'
 import {reduxForm, Field} from 'redux-form'
 import {connect} from 'react-redux'
-import {updateComment} from '../Actions'
+import {updateComment} from '../Actions/CommentActions'
 class CommentEdit extends React.Component {
     componentWillMount(){
         const {comment} = this.props

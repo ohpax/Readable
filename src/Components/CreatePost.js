@@ -1,6 +1,7 @@
 import React from 'react'
 import {Field, reduxForm} from 'redux-form'
-import {newPost,fetchPost,updatePost,fetchCategories} from '../Actions'
+import {newPost,fetchPost,updatePost} from '../Actions/PostActions'
+import {fetchCategories} from '../Actions/CategoryActions'
 import Header from './Header'
 import {connect} from 'react-redux'
 import _ from 'lodash'
