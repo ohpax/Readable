@@ -6,7 +6,10 @@ function CommentsReducer(state = {}, action) {
     let tempState = {}
     switch (action.type) {
         case Type.GET_COMMENTS:
-            tempState = _.sortBy(action.comments, 'timestamp').reverse() 
+            tempState = {
+                ...state,...action.comments
+            }
+            tempState = _.sortBy(tempState, 'timestamp').reverse() 
             tempState = {
                 ..._.mapKeys(tempState, 'id')
             }

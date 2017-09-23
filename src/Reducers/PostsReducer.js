@@ -3,11 +3,12 @@ import * as Type from '../Actions/types'
 
 
 function PostsReducer(state={}, action){
-    
+    let tempSorts ={}
+
         switch(action.type){
 
             case Type.GET_POSTS :
-                let tempSorts = [...state, ...action.posts]
+                 tempSorts = {...state, ...action.posts}
     
                 if (action.sortType === Type.sortOldToNew) {
                     tempSorts = _.sortBy(tempSorts, 'timestamp')
@@ -24,6 +25,8 @@ function PostsReducer(state={}, action){
                 return {               
                     ..._.mapKeys(tempSorts, 'id')
                 }
+
+            case Type.CREATE_POST:
             case Type.GET_POST:
                 return {
                     ...state,
@@ -59,7 +62,7 @@ function PostsReducer(state={}, action){
                     return key;
                 })
             }
-    
+            
             default:
                 return state;
         }

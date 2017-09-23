@@ -3,6 +3,7 @@ import PostsList from './PostsList'
 import Header from './Header'
 import { connect } from 'react-redux'
 import { fetchPosts, removePost } from '../Actions/PostActions'
+import { fetchPostComments } from '../Actions/CommentActions'
 import _ from 'lodash'
 import './Posts.css'
 import * as Type from '../Actions/types'
@@ -18,12 +19,20 @@ class Posts extends React.Component {
         if(this.props.match) {
             const { category } = this.props.match.params;
             
-            this.props.getPosts(Type.sortNewToOld,category)
+            this.props.getPosts(Type.sortNewToOld).then(() => (
+                _.forEach(this.props.posts,(value,key) =>{
+                    this.props.fetchPostComments(key)
+                })
+            ))
             this.setState({category:category});
 
         }
         else {
-            this.props.getPosts(Type.sortNewToOld);
+            this.props.getPosts(Type.sortNewToOld).then(() => (
+                _.forEach(this.props.posts,(value,key) =>{
+                    this.props.fetchPostComments(key)
+                })
+            ))
         }   
     }
 
@@ -32,7 +41,12 @@ class Posts extends React.Component {
         if(newProps.match) {
             const { category } = newProps.match.params;
             if(category !== this.state.category){
-                this.props.getPosts(Type.sortNewToOld,category)
+                this.props.getPosts(Type.sortNewToOld).then(() => (
+                    _.forEach(this.props.posts,(value,key) =>{
+                        this.props.fetchPostComments(key)
+                    })
+                ))
+                
                 this.setState({category:category});
             }
         }
@@ -58,18 +72,21 @@ class Posts extends React.Component {
                         <option value={Type.sortLowestScoreToHighest}>Lowest score to heighest</option>
                     </select>
                 </div>
-                <PostsList removePost={this.props.removePost} posts={this.state.category?_.filter(this.props.posts, (post) => ( post.category === this.state.category) ):this.props.posts}></PostsList>
+                <PostsList removePost={this.props.removePost} 
+                posts={this.state.category?_.filter(this.props.posts, (post) => ( post.category === this.state.category) ):this.props.posts}
+                comments= {this.props.comments}></PostsList>
             </div>
         );
     }
 }
 
-const mapStateToProps = ({posts}) => ({posts});
+const mapStateToProps = ({posts,comments}) => ({posts,comments});
 
 const mapDispatchToProps = dispatch => ({
     getPosts: (sortType) => dispatch(fetchPosts(sortType)),
     getCategoryPosts: (sortType,category) => dispatch(fetchPosts(sortType,category)),
-    removePost: postId => dispatch(removePost(postId))
+    removePost: postId => dispatch(removePost(postId)),
+    fetchPostComments: postId => dispatch(fetchPostComments(postId)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);

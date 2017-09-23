@@ -21,6 +21,8 @@
 .posts-container{
   text-align: left;
   padding: 15px 30px;
+  width: 80%;
+  margin: auto;
 }
 
 .post-wrapper{
@@ -42,4 +44,14 @@ form .form-control{
 
 .btn {
   margin: 5px;
+}
+
+.badge {
+  margin: 12px 5px 0 5px;
+}
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
 }
