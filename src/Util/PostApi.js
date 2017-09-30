@@ -9,7 +9,9 @@ export function fetchPosts() {
 export function fetchPost(postId) {
     return fetch(`${url}/posts/${postId}`, { headers: { 'Authorization': key } })
         .then((res) => res.json())
-        .then((data) => data)
+        .then((data) => {
+            console.log(data)
+            return data})
 }
 
 export function deletePost(postId) {

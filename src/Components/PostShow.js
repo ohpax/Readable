@@ -27,11 +27,13 @@ class PostShow extends React.Component {
 
     render() {
         const { post } = this.props
-        if (!post) {
-            return <div>Loading ...</div>
-        }
-        if (post.deleted) {
-            return <h1>This post is deleted</h1>
+
+        if (!post || post.deleted) {
+            return (<div>
+                <Header></Header>
+                <h1>This post is deleted</h1>
+            </div>)
+
         }
         return (
             <div>
@@ -93,7 +95,7 @@ class PostShow extends React.Component {
 
 const mapStateToProps = (state, props) => {
     const { id } = props.match.params;
-
+    console.log("post",state.posts)
     return {
         post: state.posts[id],
         comments: _.filter(state.comments, comment => comment.parentId === id)

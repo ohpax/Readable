@@ -28,10 +28,9 @@ function PostsReducer(state={}, action){
 
             case Type.CREATE_POST:
             case Type.GET_POST:
-                return {
-                    ...state,
-                     [action.post.id]:  action.post
-                    }
+                let temp = {...state,[action.post.id]: action.post}
+                temp = _.mapKeys(temp, 'id')
+                return temp
             case Type.DELETE_POST:
                     return {
                         ..._.mapKeys(state, (value, key) => {
